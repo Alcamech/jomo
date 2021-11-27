@@ -14,20 +14,25 @@ public class Message {
             if(reply.equals("Y")) {
                 return true;
             } else if (reply.equals("N")) {
+                System.out.println("Good job today!");
                 return false;
             }
         }
     }
 
     public static void startPomo() {
-        System.out.print("Begin work.\n");
+        System.out.println("Begin work.");
     }
 
     public static void startShortBreak() {
-        System.out.print("Begin a short break.\n");
+        System.out.println("Begin a short break.");
     }
 
     public static void startLongBreak() {
-        System.out.print("Begin a long break.\n");
+        System.out.println("Begin a long break.");
+    }
+
+    public static void showCircuitNumber(int n) {
+        System.out.println("Circuit Number: "+n);
     }
 }

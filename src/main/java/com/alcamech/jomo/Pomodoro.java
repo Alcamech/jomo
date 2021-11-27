@@ -8,6 +8,7 @@ public class Pomodoro {
     private int pomodoroTime;
     private int shortBreakTime;
     private int pomNum;
+    private int circuit = 1;
     private int longBreakTime;
 
     public Pomodoro() throws NumberFormatException, IOException {
@@ -38,5 +39,13 @@ public class Pomodoro {
 
     public int getLongBreakTime() {
         return longBreakTime;
+    }
+
+    public int getCircuit() {
+        return circuit;
+    }
+
+    public int increaseCircuit() {
+        return circuit++;
     }
 }

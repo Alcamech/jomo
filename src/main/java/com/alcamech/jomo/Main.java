@@ -7,6 +7,7 @@ public class Main {
         boolean isContinue;
         Pomodoro pomodoro = new Pomodoro();
         do {
+            Message.showCircuitNumber(pomodoro.getCircuit());
             for(int i = 0; i<pomodoro.getPomNum(); i++) {
                 Message.startPomo();
                 Countdown.bySleep(pomodoro.getPomodoroTime());
@@ -18,6 +19,7 @@ public class Main {
                     Countdown.bySleep(pomodoro.getShortBreakTime());
                 }
             }
+            pomodoro.increaseCircuit();
             isContinue = Message.isContinue();
         } while (isContinue);
     }
