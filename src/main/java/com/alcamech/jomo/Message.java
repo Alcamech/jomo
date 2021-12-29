@@ -5,16 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Message {
-    public static boolean isContinue() throws IOException {
+    public static boolean isContinue(String message) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while(true) {
-            System.out.println("Ready to keep working? Y/N ");
+            System.out.println(message+" Y/N ");
             String reply = br.readLine();
-            if(reply.equals("Y")) {
+            if(reply.equals("Y") || reply.equals("y")) {
                 return true;
-            } else if (reply.equals("N")) {
-                System.out.println("Good job today!");
+            } else if (reply.equals("N") || reply.equals("n")) {
                 return false;
             }
         }

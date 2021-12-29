@@ -1,0 +1,12 @@
+.root {
+    -fx-background-color: #222;
+    -fx-background-radius: 28;
+}
+
+#options:hover {
+    -fx-opacity: 0.7;
+}
+
+#placeholderText {
+    -fx-font-family: "Source Code Pro";
+}
