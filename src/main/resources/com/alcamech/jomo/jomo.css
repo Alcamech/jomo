@@ -3,6 +3,10 @@
     -fx-background-radius: 28;
 }
 
+#optionsPane {
+    -fx-background-color: #414141;
+}
+
 #options:hover {
     -fx-opacity: 0.7;
 }
