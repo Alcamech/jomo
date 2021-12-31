@@ -7,7 +7,7 @@
     -fx-background-color: #414141;
 }
 
-#options:hover {
+#options:hover, #skip:hover, #play:hover, #close:hover {
     -fx-opacity: 0.7;
 }
 

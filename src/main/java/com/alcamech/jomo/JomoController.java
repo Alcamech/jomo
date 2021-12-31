@@ -29,7 +29,7 @@ public class JomoController {
     @FXML
     private ImageView skip;
     @FXML
-    private Button close;
+    private ImageView close;
     @FXML
     private Label timer;
     @FXML
