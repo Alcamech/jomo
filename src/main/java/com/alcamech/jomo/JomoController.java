@@ -6,17 +6,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,8 +46,10 @@ public class JomoController {
     private final int longBreakLength = 15;
     private int counter = 60 * pomLength;
     private int circuitNum = 1;
+
     Image startIcon = new Image("start.png");
     Image stopIcon = new Image("stop.png");
+    String bells = "src/main/resources/sounds/dreamy-bells.wav";
 
     public void init(Stage stage) {
         setTimerText();
@@ -58,6 +62,12 @@ public class JomoController {
             stage.setX(mouseEvent.getScreenX()-x);
             stage.setY(mouseEvent.getScreenY()-y);
         });
+    }
+
+    public void playBells() {
+        Media sound = new Media(new File(bells).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     public void switchToJomoOptions(MouseEvent e) throws IOException{
@@ -90,6 +100,7 @@ public class JomoController {
         } else {
             startTimer();
             isRunning = true;
+            playBells();
             play.setImage(stopIcon);
         }
     }
@@ -150,28 +161,30 @@ public class JomoController {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    if(!isBreak) {
-                        title.setText("Pomodoro " + circuitNum);
-                    } else if (!isRunning){
+                    if(!isRunning) {
                         pauseTimer();
+                    } else if(!isBreak) {
+                        title.setText("Pomodoro " + circuitNum);
                     }
-
 
                     setTimerText();
                     counter--;
 
                     if (counter == 0 && circuitNum == 4 && !isBreak) { // long break
+                        playBells();
                         title.setText("Long Break");
                         isBreak = true;
                         isRunning = false;
                         counter = longBreakLength * 60;
                         circuitNum = 0;
                     } else if (counter == 0 && !isBreak) { // short break
+                        playBells();
                         title.setText("Short Break");
                         counter = shortBreakLength * 60;
                         isBreak = true;
                         isRunning = false;
                     } else if (counter == 0) { // break finished
+                        playBells();
                         counter = pomLength * 60;
                         circuitNum++;
                         isBreak = false;
