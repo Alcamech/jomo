@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,26 +25,30 @@ public class JomoController {
     @FXML
     private Pane mainPane;
     @FXML
-    private Button play;
+    private ImageView play;
     @FXML
-    private Button skip;
+    private ImageView skip;
     @FXML
     private Button close;
     @FXML
     private Label timer;
     @FXML
-    private Label circuit;
+    private Label title;
 
     private double x,y;
     private boolean isRunning = false;
     private boolean isBreak = false;
     private Timer pomTimer = new Timer();
-    private int counter = 60 * 25;
-    private int seconds = 0;
-    private int minutes = 0;
+    private final int pomLength = 25;
+    private final int shortBreakLength = 5;
+    private final int longBreakLength = 15;
+    private int counter = 60 * pomLength;
     private int circuitNum = 1;
+    Image startIcon = new Image("start.png");
+    Image stopIcon = new Image("stop.png");
 
     public void init(Stage stage) {
+        setTimerText();
         mainPane.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
             y = mouseEvent.getSceneY();
@@ -80,16 +86,62 @@ public class JomoController {
         if(isRunning) {
             pauseTimer();
             isRunning = false;
-            play.setText("Start");
+            play.setImage(startIcon);
         } else {
             startTimer();
             isRunning = true;
-            play.setText("Stop");
+            play.setImage(stopIcon);
+        }
+    }
+
+    public void skipTimer() {
+        isRunning = false;
+        pauseTimer();
+        if(circuitNum != 4 && !isBreak) {
+            title.setText("Short Break");
+            isBreak = true;
+            counter = shortBreakLength * 60;
+            setTimerText();
+        } else if (circuitNum == 4 && !isBreak) {
+            title.setText("Long Break");
+            isBreak = true;
+            counter = longBreakLength * 60;
+            setTimerText();
+        } else if (circuitNum == 4) {
+            isBreak = false;
+            counter = pomLength * 60;
+            circuitNum = 1;
+            setTimerText();
+        } else {
+            isBreak = false;
+            counter = pomLength * 60;
+            circuitNum++;
+            setTimerText();
+        }
+
+        if(!isBreak) {
+            title.setText("Pomodoro " + circuitNum);
         }
     }
 
     public void pauseTimer() {
         pomTimer.cancel();
+        play.setImage(startIcon);
+    }
+
+    public void setTimerText() {
+        int seconds = counter % 60;
+        int minutes = counter / 60;
+        if (seconds < 10 && minutes < 10) {
+            timer.setText("0" + minutes + ":0" + seconds);
+        } else if (minutes < 10) {
+            timer.setText("0" + minutes + ":" + seconds);
+        } else if (seconds < 10) {
+            timer.setText(minutes + ":0" + seconds);
+        }
+        else {
+            timer.setText(minutes + ":" + seconds);
+        }
     }
 
     public void startTimer() {
@@ -98,32 +150,32 @@ public class JomoController {
             @Override
             public void run() {
                 Platform.runLater(() -> {
+                    if(!isBreak) {
+                        title.setText("Pomodoro " + circuitNum);
+                    } else if (!isRunning){
+                        pauseTimer();
+                    }
+
+
+                    setTimerText();
                     counter--;
 
-                    seconds = counter % 60;
-                    minutes = counter / 60;
-                    if (seconds < 10 && minutes < 10) {
-                        timer.setText("0" + minutes + ":0" + seconds);
-                    } else if (minutes < 10 && seconds > 10) {
-                        timer.setText("0" + minutes + ":" + seconds);
-                    } else if (seconds < 10 && minutes > 10) {
-                        timer.setText(minutes + ":0" +seconds);
-                    }
-                    else {
-                        timer.setText(minutes + ":" + seconds);
-                    }
-
                     if (counter == 0 && circuitNum == 4 && !isBreak) { // long break
+                        title.setText("Long Break");
                         isBreak = true;
-                        counter = 15 * 60; // 15 * 60 Testing: 5
+                        isRunning = false;
+                        counter = longBreakLength * 60;
                         circuitNum = 0;
                     } else if (counter == 0 && !isBreak) { // short break
-                        counter = 5 * 60; // 5 * 60 Testing: 2
+                        title.setText("Short Break");
+                        counter = shortBreakLength * 60;
                         isBreak = true;
+                        isRunning = false;
                     } else if (counter == 0) { // break finished
-                        counter = 25 * 60; // 25 * 60 Testing: 10
+                        counter = pomLength * 60;
                         circuitNum++;
                         isBreak = false;
+                        isRunning = false;
                     }
                 });
             }

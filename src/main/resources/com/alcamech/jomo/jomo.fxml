@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,9 +9,9 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@jomo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alcamech.jomo.JomoController">
    <children>
-      <Pane prefHeight="47.0" prefWidth="400.0">
+      <Pane prefHeight="66.0" prefWidth="400.0">
          <children>
-            <ImageView fx:id="options" fitHeight="35.0" fitWidth="35.0" layoutX="351.0" layoutY="6.0" onMouseClicked="#switchToJomoOptions" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="options" fitHeight="45.0" fitWidth="45.0" layoutX="341.0" layoutY="11.0" onMouseClicked="#switchToJomoOptions" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../tomato.png" />
                </image>
@@ -24,12 +23,20 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="play" layoutX="149.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#pomodoro" text="Start" />
-      <Button fx:id="skip" layoutX="204.0" layoutY="269.0" mnemonicParsing="false" text="Skip" />
-      <Label fx:id="circuit" layoutX="149.0" layoutY="110.0" text="Circuit 1" textFill="WHITE">
+      <Label fx:id="title" alignment="CENTER" layoutY="119.0" prefHeight="30.0" prefWidth="400.0" text="Pomodoro 1" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font size="14.0" />
          </font>
       </Label>
+      <ImageView fx:id="play" fitHeight="32.0" fitWidth="32.0" layoutX="160.0" layoutY="243.0" onMouseClicked="#pomodoro" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../start.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="skip" fitHeight="32.0" fitWidth="32.0" layoutX="207.0" layoutY="243.0" onMouseClicked="#skipTimer" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../skip.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
