@@ -81,8 +81,8 @@ public class JomoController {
         stage.setScene(scene);
         Stage primaryStage = (Stage) ((Node)e.getSource()).getScene().getWindow();
         stage.initOwner(primaryStage);
-        stage.setX(primaryStage.getX()+50);
-        stage.setY(primaryStage.getY()+50);
+        stage.setX(primaryStage.getX()+25);
+        stage.setY(primaryStage.getY()+25);
         stage.showAndWait();
     }
 
@@ -91,6 +91,10 @@ public class JomoController {
         stage.close();
     }
 
+    public void closeApplication(MouseEvent e) {
+        Platform.exit();
+        System.exit(0);
+    }
 
     public void pomodoro(MouseEvent e) throws IOException {
         if(isRunning) {
