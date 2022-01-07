@@ -11,7 +11,9 @@ A pomodoro timer built using Java.
 
 ## Installation and Usage
 
-## Contributing 
+## Contributing
+
+[TODO](TODO.md)
 
 ## Credits
 

@@ -43,6 +43,6 @@
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="55.0" prefWidth="326.0" text="Jomo" textFill="WHITE" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="79.0" prefWidth="326.0" text="Version 1.0.0" textFill="WHITE" />
       <Hyperlink layoutX="59.0" layoutY="105.0" text="https://github.com/Alcamech/jomo" />
-      <Label fx:id="quit" layoutX="126.0" layoutY="302.0" text="Exit Application" textFill="WHITE" />
+      <Label fx:id="quit" layoutX="126.0" layoutY="302.0" onMousePressed="#closeApplication" text="Exit Application" textFill="WHITE" />
    </children>
 </AnchorPane>
