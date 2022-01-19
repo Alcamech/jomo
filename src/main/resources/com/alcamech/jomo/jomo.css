@@ -14,3 +14,7 @@
 #placeholderText {
     -fx-font-family: "Source Code Pro";
 }
+
+#pomTextField, #shortBreakTextField, #longBreakTextField, #sesssionsTextField {
+    -fx-text-fill: "white";
+}

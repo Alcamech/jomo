@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +16,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -37,6 +39,14 @@ public class JomoController {
     private Label timer;
     @FXML
     private Label title;
+    @FXML
+    private TextField pomLengthInput;
+    @FXML
+    private TextField shortBreakLengthInput;
+    @FXML
+    private TextField longBreakLengthInput;
+    @FXML
+    private TextField sessionsUntilBreakInput;
 
     private double x,y;
     private boolean isRunning = false;
@@ -45,12 +55,12 @@ public class JomoController {
     private final int pomLength = 25;
     private final int shortBreakLength = 5;
     private final int longBreakLength = 15;
+    private final int sessionUntilBreak = 4;
     private int counter = 60 * pomLength;
     private int circuitNum = 1;
 
     Image startIcon = new Image("start.png");
     Image stopIcon = new Image("stop.png");
-    //String bells = "src/main/resources/sounds/dreamy-bells.wav";
     AudioClip bells = new AudioClip(getClass().getResource("/sounds/dreamy-bells.wav").toExternalForm());
 
     public void init(Stage stage) {
@@ -71,7 +81,7 @@ public class JomoController {
     }
 
     public void switchToJomoOptions(MouseEvent e) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(Jomo.class.getResource("jomoOptions.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("jomoOptions.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -112,17 +122,17 @@ public class JomoController {
     public void skipTimer() {
         isRunning = false;
         pauseTimer();
-        if(circuitNum != 4 && !isBreak) {
+        if(circuitNum != sessionUntilBreak && !isBreak) {
             title.setText("Short Break");
             isBreak = true;
             counter = shortBreakLength * 60;
             setTimerText();
-        } else if (circuitNum == 4 && !isBreak) {
+        } else if (circuitNum == sessionUntilBreak && !isBreak) {
             title.setText("Long Break");
             isBreak = true;
             counter = longBreakLength * 60;
             setTimerText();
-        } else if (circuitNum == 4) {
+        } else if (circuitNum == sessionUntilBreak) {
             isBreak = false;
             counter = pomLength * 60;
             circuitNum = 1;
@@ -174,7 +184,7 @@ public class JomoController {
                     setTimerText();
                     counter--;
 
-                    if (counter == 0 && circuitNum == 4 && !isBreak) { // long break
+                    if (counter == 0 && circuitNum == sessionUntilBreak && !isBreak) { // long break
                         playBells();
                         title.setText("Long Break");
                         isBreak = true;
@@ -198,5 +208,4 @@ public class JomoController {
             }
         }, 0, 1000);
     }
-
 }
