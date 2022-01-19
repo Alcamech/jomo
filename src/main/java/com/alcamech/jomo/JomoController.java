@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -49,7 +50,8 @@ public class JomoController {
 
     Image startIcon = new Image("start.png");
     Image stopIcon = new Image("stop.png");
-    String bells = "src/main/resources/sounds/dreamy-bells.wav";
+    //String bells = "src/main/resources/sounds/dreamy-bells.wav";
+    AudioClip bells = new AudioClip(getClass().getResource("/sounds/dreamy-bells.wav").toExternalForm());
 
     public void init(Stage stage) {
         setTimerText();
@@ -65,9 +67,7 @@ public class JomoController {
     }
 
     public void playBells() {
-        Media sound = new Media(new File(bells).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        bells.play();
     }
 
     public void switchToJomoOptions(MouseEvent e) throws IOException{
