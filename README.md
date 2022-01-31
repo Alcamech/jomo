@@ -11,6 +11,17 @@ A pomodoro timer built using Java.
 
 ## Installation and Usage
 
+Download the respective zip for your OS from [Releases](https://github.com/Alcamech/jomo/releases)
+
+### Linux usage
+```
+mkdir jomo
+unzip jomo.zip -d jomo
+cd bin/
+./jomo 
+```
+
+
 ## Contributing
 
 [TODO](TODO.md)
