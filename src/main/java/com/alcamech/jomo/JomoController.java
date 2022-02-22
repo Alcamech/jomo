@@ -13,16 +13,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -61,7 +58,7 @@ public class JomoController {
 
     Image startIcon = new Image("start.png");
     Image stopIcon = new Image("stop.png");
-    AudioClip bells = new AudioClip(getClass().getResource("/sounds/dreamy-bells.wav").toExternalForm());
+    AudioClip bells = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/dreamy-bells.wav")).toExternalForm());
 
     public void init(Stage stage) {
         setTimerText();
@@ -80,13 +77,13 @@ public class JomoController {
         bells.play();
     }
 
-    public void switchToJomoOptions(MouseEvent e) throws IOException{
+    public void switchToJomoOptions(MouseEvent e) throws IOException {
+        Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("jomoOptions.fxml"));
         Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(root);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initModality(Modality.WINDOW_MODAL);
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         Stage primaryStage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -97,16 +94,16 @@ public class JomoController {
     }
 
     public void closeOptionsWindow(MouseEvent e) {
-        Stage stage = (Stage) close.getScene().getWindow();
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    public void closeApplication(MouseEvent e) {
+    public void closeApplication() {
         Platform.exit();
         System.exit(0);
     }
 
-    public void pomodoro(MouseEvent e) throws IOException {
+    public void pomodoro() {
         if(isRunning) {
             pauseTimer();
             isRunning = false;
