@@ -27,27 +27,14 @@ public class JomoController {
     @FXML
     private Pane mainPane;
     @FXML
-    private ImageView play;
+    private ImageView play, skip, close;
     @FXML
-    private ImageView skip;
+    private Label timer, title;
     @FXML
-    private ImageView close;
-    @FXML
-    private Label timer;
-    @FXML
-    private Label title;
-    @FXML
-    private TextField pomLengthInput;
-    @FXML
-    private TextField shortBreakLengthInput;
-    @FXML
-    private TextField longBreakLengthInput;
-    @FXML
-    private TextField sessionsUntilBreakInput;
+    private TextField pomLengthInput, shortBreakLengthInput, longBreakLengthInput, sessionsUntilBreakInput;
 
     private double x,y;
-    private boolean isRunning = false;
-    private boolean isBreak = false;
+    private boolean isRunning, isBreak = false;
     private Timer pomTimer = new Timer();
     private final int pomLength = 25;
     private final int shortBreakLength = 5;
