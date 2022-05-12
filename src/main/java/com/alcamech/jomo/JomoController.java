@@ -48,7 +48,7 @@ public class JomoController {
     AudioClip bells = new AudioClip(Objects.requireNonNull(getClass().getResource("/sounds/dreamy-bells.wav")).toExternalForm());
 
     public void init(Stage stage) {
-        setTimerText();
+        updateTimerText();
         mainPane.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
             y = mouseEvent.getSceneY();
@@ -94,43 +94,33 @@ public class JomoController {
         if(isRunning) {
             pauseTimer();
             isRunning = false;
-            play.setImage(startIcon);
         } else {
             startTimer();
             isRunning = true;
             playBells();
-            play.setImage(stopIcon);
         }
+        updateUI();
     }
 
     public void skipTimer() {
         isRunning = false;
         pauseTimer();
         if(circuitNum != sessionUntilBreak && !isBreak) {
-            title.setText("Short Break");
             isBreak = true;
             counter = shortBreakLength * 60;
-            setTimerText();
         } else if (circuitNum == sessionUntilBreak && !isBreak) {
-            title.setText("Long Break");
             isBreak = true;
             counter = longBreakLength * 60;
-            setTimerText();
         } else if (circuitNum == sessionUntilBreak) {
             isBreak = false;
             counter = pomLength * 60;
             circuitNum = 1;
-            setTimerText();
         } else {
             isBreak = false;
             counter = pomLength * 60;
             circuitNum++;
-            setTimerText();
         }
-
-        if(!isBreak) {
-            title.setText("Pomodoro " + circuitNum);
-        }
+        updateUI();
     }
 
     public void pauseTimer() {
@@ -138,18 +128,35 @@ public class JomoController {
         play.setImage(startIcon);
     }
 
-    public void setTimerText() {
+    public void updateUI() {
+        updateTitle();
+        updateTimerText();
+        updatePlayIcon();
+    }
+
+    public void updateTimerText() {
         int seconds = counter % 60;
         int minutes = counter / 60;
-        if (seconds < 10 && minutes < 10) {
-            timer.setText("0" + minutes + ":0" + seconds);
-        } else if (minutes < 10) {
-            timer.setText("0" + minutes + ":" + seconds);
-        } else if (seconds < 10) {
-            timer.setText(minutes + ":0" + seconds);
+        timer.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+
+    public void updateTitle() {
+        if(isBreak) {
+            if(circuitNum == 4) {
+                title.setText("Long Break");
+            } else {
+                title.setText("Short Break");
+            }
+        } else {
+            title.setText("Pomodoro " + circuitNum);
         }
-        else {
-            timer.setText(minutes + ":" + seconds);
+    }
+
+    public void updatePlayIcon() {
+        if(isRunning) {
+            play.setImage(stopIcon);
+        } else {
+            play.setImage(startIcon);
         }
     }
 
@@ -159,35 +166,28 @@ public class JomoController {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    if(!isRunning) {
+                    if(isRunning) {
+                        counter--;
+                        if(counter == 0) {
+                            playBells();
+                            isRunning = false;
+                            if(circuitNum == sessionUntilBreak && !isBreak) {
+                                isBreak = true;
+                                counter = longBreakLength * 60;
+                                circuitNum = 0;
+                            } else if (!isBreak) {
+                                counter = shortBreakLength * 60;
+                                isBreak = true;
+                            } else {
+                                counter = pomLength * 60;
+                                circuitNum++;
+                                isBreak = false;
+                            }
+                        }
+                    } else {
                         pauseTimer();
-                    } else if(!isBreak) {
-                        title.setText("Pomodoro " + circuitNum);
                     }
-
-                    setTimerText();
-                    counter--;
-
-                    if (counter == 0 && circuitNum == sessionUntilBreak && !isBreak) { // long break
-                        playBells();
-                        title.setText("Long Break");
-                        isBreak = true;
-                        isRunning = false;
-                        counter = longBreakLength * 60;
-                        circuitNum = 0;
-                    } else if (counter == 0 && !isBreak) { // short break
-                        playBells();
-                        title.setText("Short Break");
-                        counter = shortBreakLength * 60;
-                        isBreak = true;
-                        isRunning = false;
-                    } else if (counter == 0) { // break finished
-                        playBells();
-                        counter = pomLength * 60;
-                        circuitNum++;
-                        isBreak = false;
-                        isRunning = false;
-                    }
+                    updateUI();
                 });
             }
         }, 0, 1000);
