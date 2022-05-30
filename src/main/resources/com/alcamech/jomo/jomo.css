@@ -4,7 +4,7 @@
 }
 
 #optionsPane {
-    -fx-background-color: #414141;
+    -fx-background-color: #222;
 }
 
 #options:hover, #skip:hover, #play:hover, #close:hover, #quit:hover {

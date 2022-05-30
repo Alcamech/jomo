@@ -11,6 +11,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class Jomo extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Jomo.class.getResource("jomo.fxml"));

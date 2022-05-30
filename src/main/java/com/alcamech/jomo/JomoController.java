@@ -1,6 +1,7 @@
 package com.alcamech.jomo;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -61,6 +62,7 @@ public class JomoController {
     }
 
     public void playBells() {
+        bells.setVolume(0.5);
         bells.play();
     }
 
@@ -75,8 +77,8 @@ public class JomoController {
         stage.setScene(scene);
         Stage primaryStage = (Stage) ((Node)e.getSource()).getScene().getWindow();
         stage.initOwner(primaryStage);
-        stage.setX(primaryStage.getX()+25);
-        stage.setY(primaryStage.getY()+25);
+        stage.setX(primaryStage.getX());
+        stage.setY(primaryStage.getY());
         stage.showAndWait();
     }
 

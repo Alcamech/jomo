@@ -9,9 +9,10 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@jomo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alcamech.jomo.JomoController">
    <children>
+      <Pane fx:id="secondaryPane" prefHeight="400.0" prefWidth="400.0" />
       <Pane prefHeight="66.0" prefWidth="400.0">
          <children>
-            <ImageView fx:id="options" fitHeight="45.0" fitWidth="45.0" layoutX="341.0" layoutY="11.0" onMouseClicked="#switchToJomoOptions" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="options" fitHeight="45.0" fitWidth="45.0" layoutX="341.0" layoutY="11.0" onMouseReleased="#switchToJomoOptions" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../tomato.png" />
                </image>

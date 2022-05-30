@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="optionsPane" fx:id="optionsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" stylesheets="@jomo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alcamech.jomo.JomoController">
+<AnchorPane id="optionsPane" fx:id="optionsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@jomo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alcamech.jomo.JomoController">
    <children>
-      <ImageView fx:id="close" fitHeight="32.0" fitWidth="32.0" layoutX="300.0" layoutY="14.0" onMousePressed="#closeOptionsWindow" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="close" fitHeight="32.0" fitWidth="32.0" layoutX="354.0" layoutY="14.0" onMousePressed="#closeOptionsWindow" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../close.png" />
          </image>
@@ -47,9 +47,9 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </GridPane>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="55.0" prefWidth="326.0" text="Jomo" textFill="WHITE" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="79.0" prefWidth="326.0" text="Version 1.0.0" textFill="WHITE" />
-      <Hyperlink layoutX="59.0" layoutY="105.0" text="https://github.com/Alcamech/jomo" />
-      <Label fx:id="quit" layoutX="126.0" layoutY="302.0" onMousePressed="#closeApplication" text="Exit Application" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="60.0" prefWidth="326.0" text="Jomo" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="90.0" prefWidth="326.0" text="Version 1.0.0" textFill="WHITE" />
+      <Hyperlink layoutX="88.0" layoutY="115.0" text="https://github.com/Alcamech/jomo" />
+      <Label fx:id="quit" layoutX="152.0" layoutY="304.0" onMousePressed="#closeApplication" text="Exit Application" textFill="WHITE" />
    </children>
 </AnchorPane>
