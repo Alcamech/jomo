@@ -62,7 +62,7 @@ public class JomoController {
     }
 
     public void playBells() {
-        bells.setVolume(0.5);
+        bells.setVolume(0.3);
         bells.play();
     }
 
